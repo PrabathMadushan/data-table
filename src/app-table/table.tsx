@@ -1,14 +1,11 @@
 import moment from "moment";
-import { useEffect, useMemo, useState } from "react";
-import { FiClock } from "react-icons/fi";
+import {useEffect, useMemo, useState} from "react";
+import {FiClock} from "react-icons/fi";
 // @ts-ignore
-import { v4 as uuid } from "uuid";
-import TableCell, {
-  DEFAULT_CELL_HEIGHT,
-  DEFAULT_CELL_WIDTH,
-} from "./components/cell/cell";
+import {v4 as uuid} from "uuid";
+import TableCell, {DEFAULT_CELL_HEIGHT, DEFAULT_CELL_WIDTH,} from "./components/cell/cell";
 import SelectOverlay from "./components/select-overlay/select-overlay";
-import { ICell, ITableColumn } from "./models";
+import {ICell, ITableColumn} from "./models";
 import styles from "./table.module.scss";
 
 interface ITableData {
@@ -95,7 +92,7 @@ const AppTable = (props: ITableData) => {
           columns[cIndex].timeSlots?.map((r) => {
             return {
               id: uuid(),
-              width: 1 * DEFAULT_CELL_WIDTH,
+              width: DEFAULT_CELL_WIDTH,
               height:
                 (r.toInMinutes / 15 - r.fromInMinutes / 15) *
                 DEFAULT_CELL_HEIGHT,
@@ -302,11 +299,11 @@ const AppTable = (props: ITableData) => {
     let validatedTop = newTop;
     let validatedHeight = newHeight;
 
-    if (newHeight <= DEFAULT_CELL_HEIGHT * 1) {
+    if (newHeight <= DEFAULT_CELL_HEIGHT) {
       //new
       validatedTop =
         Math.round(o.top / DEFAULT_CELL_HEIGHT) * DEFAULT_CELL_HEIGHT;
-      validatedHeight = DEFAULT_CELL_HEIGHT * 1; //new
+      validatedHeight = DEFAULT_CELL_HEIGHT; //new
     }
 
     const [column] = overlays.filter(
@@ -341,9 +338,9 @@ const AppTable = (props: ITableData) => {
   const validateResizeBottom = (o: OverlayPosition, newHeight: number) => {
     let validatedHeight = newHeight;
 
-    if (newHeight <= DEFAULT_CELL_HEIGHT * 1) {
+    if (newHeight <= DEFAULT_CELL_HEIGHT) {
       //new
-      validatedHeight = DEFAULT_CELL_HEIGHT * 1; //new
+      validatedHeight = DEFAULT_CELL_HEIGHT; //new
     }
 
     const [column] = overlays.filter(
@@ -457,8 +454,7 @@ const AppTable = (props: ITableData) => {
           const scrollTopX =
             window.pageYOffset || docEl.scrollTop || body.scrollTop;
           const clientTop = docEl.clientTop || body.clientTop || 0;
-          const top = box.top + scrollTopX - clientTop;
-          const tableDivTop = top;
+          const tableDivTop = box.top + scrollTopX - clientTop;
           const scrollTop = e.currentTarget.scrollTop;
 
           switch (currentAction) {
@@ -556,8 +552,8 @@ const AppTable = (props: ITableData) => {
                           id: id,
                           top: cell.row * DEFAULT_CELL_HEIGHT,
                           left: cell.column * DEFAULT_CELL_WIDTH,
-                          height: 1 * DEFAULT_CELL_HEIGHT, //new
-                          width: 1 * DEFAULT_CELL_WIDTH,
+                          height: DEFAULT_CELL_HEIGHT, //new
+                          width: DEFAULT_CELL_WIDTH,
                           center: cell,
                           color:
                             colors[Math.floor(Math.random() * colors.length)],
@@ -579,7 +575,7 @@ const AppTable = (props: ITableData) => {
                   return {
                     ...o,
                     top: a <= 0 ? cell.row * DEFAULT_CELL_HEIGHT : o.top,
-                    height: Math.abs(a) + 1 * DEFAULT_CELL_HEIGHT, //new
+                    height: Math.abs(a) + DEFAULT_CELL_HEIGHT, //new
                   };
                 }, cell.column);
               }
@@ -592,7 +588,7 @@ const AppTable = (props: ITableData) => {
                   return {
                     ...o,
                     top: a <= 0 ? cell.row * DEFAULT_CELL_HEIGHT : o.top,
-                    height: Math.abs(a) + 1 * DEFAULT_CELL_HEIGHT,
+                    height: Math.abs(a) + DEFAULT_CELL_HEIGHT,
                   };
                 }, cell.column);
                 setActiveOverlayId("");
