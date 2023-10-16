@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import AppTable from "./app-table/table";
+import {ITableColumn} from "./app-table/models";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [tableDataWeekends, setTableDataWeekends] = useState<ITableColumn[]>(
+        [{
+            id:"1",
+            title:"device 01",
+            timeSlots:[]
+        },
+            {
+                id:"2",
+                title:"device 02",
+                timeSlots:[]
+            },
+            {
+                id:"3",
+                title:"device 03",
+                timeSlots:[]
+            },
+            {
+                id:"4",
+                title:"device 04",
+                timeSlots:[]
+            },
+            {
+                id:"5",
+                title:"device 05",
+                timeSlots:[]
+            }]
+    );
+    return (
+        <div className="App">
+            <AppTable data={tableDataWeekends} mode={"Edit"} onChange={(data) => {
+                setTableDataWeekends(data);
+            }}/>
+        </div>
+    );
 }
 
 export default App;
